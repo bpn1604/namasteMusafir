@@ -158,7 +158,7 @@ function Header() {
               </Link>
             </div>
             <a
-              href="https://wa.me/917871235082?text=Hi%20there,%20I%20have%20a%20question"
+              href="https://wa.me/917258827254?text=Hi%20there,%20I%20have%20a%20question"
               target="_blank"
             >
               {" "}
