@@ -71,70 +71,97 @@ export default function Home({ showModal, handleClose }) {
   return (
     <div>
       {/* Modal - Added at the top but won't affect existing layout */}
-      <Modal show={showModal} onHide={handleClose} centered>
+      <Modal
+        show={showModal}
+        onHide={handleClose}
+        centered
+        size="lg"
+        style={{ padding: "5px" }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Get the Best Travel Deals!</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="name" className="form-label">
-                Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
+          <div className="row g-3">
+            {/* Image Column - Equal width to form */}
+            <div className="col-md-6 d-flex align-items-center">
+              <img
+                src="assets/img/logo2.jpg"
+                className="img-fluid rounded"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  maxHeight: "400px",
+                  objectFit: "cover",
+                }}
+                alt="Travel Deals"
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
+
+            {/* Form Column - Equal width to image */}
+            <div className="col-md-6">
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="name" className="form-label">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="mobile" className="form-label">
+                    Mobile Number
+                  </label>
+                  <input
+                    type="tel"
+                    className="form-control"
+                    id="mobile"
+                    name="mobile"
+                    value={formData.mobile}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="destination" className="form-label">
+                    Destination
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="destination"
+                    name="destination"
+                    value={formData.destination}
+                    onChange={handleInputChange}
+                    placeholder="Enter your desired destination"
+                  />
+                </div>
+                <Button variant="primary" type="submit" className="w-100 mt-2">
+                  Get Travel Quotes
+                </Button>
+              </form>
             </div>
-            <div className="mb-3">
-              <label htmlFor="mobile" className="form-label">
-                Mobile Number
-              </label>
-              <input
-                type="tel"
-                className="form-control"
-                id="mobile"
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="destination" className="form-label">
-                Destination
-              </label>
-              <input
-                type="tel"
-                className="form-control"
-                id="destination"
-                name="destination"
-                value={formData.destination}
-                onChange={handleInputChange}
-              />
-            </div>
-            <Button variant="secondary" type="submit" className="w-100">
-              Get Travel Quotes
-            </Button>
-          </form>
+          </div>
         </Modal.Body>
       </Modal>
       {/* Your existing code starts here - completely unchanged */}
