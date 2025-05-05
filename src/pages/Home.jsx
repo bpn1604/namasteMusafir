@@ -1,14 +1,153 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TestimonialCarousel from "./TestimonialCarousel";
-
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import axios from "axios";
 export default function Home() {
   const [showFullText, setShowFullText] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+    destination: "",
+  });
 
   const toggleText = () => {
     setShowFullText(!showFullText);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowModal(true);
+    }, 5000); // Show modal after 1 second
+
+    return () => clearTimeout(timer); // Clean up the timer
+  }, []);
+
+  const handleClose = () => setShowModal(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log("Form submitted:", formData);
+
+      const response = await axios.post(
+        "https://namaste-musafir-api.onrender.com/api/user",
+        formData
+      );
+
+      console.log("Server response:", response.data);
+
+      // Optional: Show success message to the user
+      alert("User created successfully!");
+
+      handleClose();
+    } catch (error) {
+      if (error.response) {
+        // Server responded with a status outside the 2xx range
+        console.error(
+          "Server error:",
+          error.response.status,
+          error.response.data
+        );
+        alert(
+          `Error ${error.response.status}: ${
+            error.response.data.message || "Something went wrong."
+          }`
+        );
+      } else if (error.request) {
+        // Request was made but no response received
+        console.error("No response from server:", error.request);
+        alert("No response from server. Please try again later.");
+      } else {
+        // Something else happened
+        console.error("Error:", error.message);
+        alert("Error submitting form: " + error.message);
+      }
+    }
+  };
+
   return (
     <div>
+      {/* Modal - Added at the top but won't affect existing layout */}
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Get the Best Travel Deals!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label">
+                Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="mobile" className="form-label">
+                Mobile Number
+              </label>
+              <input
+                type="tel"
+                className="form-control"
+                id="mobile"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="destination" className="form-label">
+                Destination
+              </label>
+              <input
+                type="tel"
+                className="form-control"
+                id="destination"
+                name="destination"
+                value={formData.destination}
+                onChange={handleInputChange}
+              />
+            </div>
+            <Button variant="secondary" type="submit" className="w-100">
+              Get Travel Quotes
+            </Button>
+          </form>
+        </Modal.Body>
+      </Modal>
+
+      {/* Your existing code starts here - completely unchanged */}
       <div className="container-fluid bg-secondary py-5 mb-5 hero-header">
         <div className="container py-5">
           <div className="row justify-content-center py-5">
@@ -184,54 +323,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            {/* <div className="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-            <div className="service-item rounded pt-3">
-              <div className="p-4">
-                <i className="fa fa-3x fa-globe text-secondary mb-4" />
-                <h5>WorldWide Tours</h5>
-                <p>
-                  Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita
-                  amet diam
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-            <div className="service-item rounded pt-3">
-              <div className="p-4">
-                <i className="fa fa-3x fa-hotel text-secondary mb-4" />
-                <h5>Hotel Reservation</h5>
-                <p>
-                  Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita
-                  amet diam
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-            <div className="service-item rounded pt-3">
-              <div className="p-4">
-                <i className="fa fa-3x fa-user text-secondary mb-4" />
-                <h5>Travel Guides</h5>
-                <p>
-                  Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita
-                  amet diam
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-            <div className="service-item rounded pt-3">
-              <div className="p-4">
-                <i className="fa fa-3x fa-cog text-secondary mb-4" />
-                <h5>Event Management</h5>
-                <p>
-                  Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita
-                  amet diam
-                </p>
-              </div>
-            </div>
-          </div> */}
           </div>
         </div>
       </div>
@@ -792,120 +883,6 @@ export default function Home() {
         </div>
       </div>
       {/* Process Start */}
-      {/* Team Start */}
-      {/* <div className="container-xxl py-5">
-      <div className="container">
-        <div className="text-center wow fadeInUp" data-wow-delay="0.1s">
-          <h6 className="section-title bg-white text-center text-secondary px-3">
-            Travel Guide
-          </h6>
-          <h1 className="mb-5">Meet Our Guide</h1>
-        </div>
-        <div className="row g-4">
-          <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-            <div className="team-item">
-              <div className="overflow-hidden">
-                <img className="img-fluid" src="assets/img/team-1.jpg" alt="" />
-              </div>
-              <div
-                className="position-relative d-flex justify-content-center"
-                style={{ marginTop: "-19px" }}
-              >
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-facebook-f" />
-                </a>
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-twitter" />
-                </a>
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-instagram" />
-                </a>
-              </div>
-              <div className="text-center p-4">
-                <h5 className="mb-0">Full Name</h5>
-                <small>Designation</small>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-            <div className="team-item">
-              <div className="overflow-hidden">
-                <img className="img-fluid" src="assets/img/team-2.jpg" alt="" />
-              </div>
-              <div
-                className="position-relative d-flex justify-content-center"
-                style={{ marginTop: "-19px" }}
-              >
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-facebook-f" />
-                </a>
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-twitter" />
-                </a>
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-instagram" />
-                </a>
-              </div>
-              <div className="text-center p-4">
-                <h5 className="mb-0">Full Name</h5>
-                <small>Designation</small>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-            <div className="team-item">
-              <div className="overflow-hidden">
-                <img className="img-fluid" src="assets/img/team-3.jpg" alt="" />
-              </div>
-              <div
-                className="position-relative d-flex justify-content-center"
-                style={{ marginTop: "-19px" }}
-              >
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-facebook-f" />
-                </a>
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-twitter" />
-                </a>
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-instagram" />
-                </a>
-              </div>
-              <div className="text-center p-4">
-                <h5 className="mb-0">Full Name</h5>
-                <small>Designation</small>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-            <div className="team-item">
-              <div className="overflow-hidden">
-                <img className="img-fluid" src="assets/img/team-4.jpg" alt="" />
-              </div>
-              <div
-                className="position-relative d-flex justify-content-center"
-                style={{ marginTop: "-19px" }}
-              >
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-facebook-f" />
-                </a>
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-twitter" />
-                </a>
-                <a className="btn btn-square mx-1" href="">
-                  <i className="fab fa-instagram" />
-                </a>
-              </div>
-              <div className="text-center p-4">
-                <h5 className="mb-0">Full Name</h5>
-                <small>Designation</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> */}
-      {/* Team End */}
       {/* Testimonial Start */}
       <div className="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div className="container">
