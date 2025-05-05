@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Header() {
+function Header({ showModal, handleClose, setShowModal }) {
+  const handleClick = () => {
+    setShowModal(true);
+  };
   return (
     <div>
       {/* Spinner Start */}
@@ -167,7 +170,11 @@ function Header() {
                 src="https://png.pngtree.com/png-clipart/20221019/original/pngtree-whatsapp-mobile-software-icon-png-image_8704828.png"
               />
             </a>
-            <Link to="/" className="btn btn-secondary rounded-pill py-2 px-4">
+            <Link
+              to="/"
+              className="btn btn-secondary rounded-pill py-2 px-4"
+              onClick={handleClick}
+            >
               Register
             </Link>
           </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -14,11 +14,22 @@ import Error from './pages/Error'
 import Contact from './pages/Contact'
 
 export default function App() {
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowModal(true);
+    }, 5000);
+
+    return () => clearTimeout(timer); // Clean up the timer
+  }, []);
+
+  const handleClose = () => setShowModal(false);
   return (
     <div>
-      <Header />
+      <Header setShowModal={setShowModal} showModal={showModal} handleClose={handleClose} />
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home showModal={showModal} handleClose={handleClose} />} />
         <Route path='/about' element={<About />} />
         {/* <Route path='/services' element={<Services/>}/> */}
         <Route path='/packages' element={<Packages />} />

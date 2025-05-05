@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TestimonialCarousel from "./TestimonialCarousel";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-export default function Home() {
+
+export default function Home({ showModal, handleClose }) {
   const [showFullText, setShowFullText] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  console.log(showModal);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,16 +17,6 @@ export default function Home() {
   const toggleText = () => {
     setShowFullText(!showFullText);
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowModal(true);
-    }, 5000); // Show modal after 1 second
-
-    return () => clearTimeout(timer); // Clean up the timer
-  }, []);
-
-  const handleClose = () => setShowModal(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +40,7 @@ export default function Home() {
       console.log("Server response:", response.data);
 
       // Optional: Show success message to the user
-      alert("User created successfully!");
+      alert("Registration successful!");
 
       handleClose();
     } catch (error) {
@@ -146,7 +137,6 @@ export default function Home() {
           </form>
         </Modal.Body>
       </Modal>
-
       {/* Your existing code starts here - completely unchanged */}
       <div className="container-fluid bg-secondary py-5 mb-5 hero-header">
         <div className="container py-5">
@@ -949,7 +939,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {/* Testimonial End */}
+      {/* Testimonial End */};
     </div>
   );
 }
