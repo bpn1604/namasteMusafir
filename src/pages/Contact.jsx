@@ -69,7 +69,7 @@ function Contact() {
                 </div>
                 <div className="ms-3">
                   <h5 className="text-primary">Mobile</h5>
-                  <p className="mb-0">7258827254</p>
+                  <p className="mb-0">6205314435</p>
                 </div>
               </div>
               <div className="d-flex align-items-center">

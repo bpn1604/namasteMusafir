@@ -76,7 +76,7 @@ export default function Home({ showModal, handleClose }) {
         onHide={handleClose}
         centered
         size="lg"
-        style={{ padding: "5px" }}
+        style={{ padding: "5px", borderRadius: "10px" }}
       >
         <Modal.Header closeButton>
           <Modal.Title>Get the Best Travel Deals!</Modal.Title>
