@@ -36,7 +36,7 @@ function Header({ showModal, handleClose, setShowModal }) {
               </small>
               <small className="me-3 text-light">
                 <i className="fa fa-phone-alt me-2" />
-                7258827254
+                6205314435
               </small>
               <small className="text-light">
                 <i className="fa fa-envelope-open me-2" />
@@ -161,7 +161,7 @@ function Header({ showModal, handleClose, setShowModal }) {
               </Link>
             </div>
             <a
-              href="https://wa.me/917258827254?text=Hi%20there,%20I%20have%20a%20question"
+              href="https://wa.me/916205314435?text=Hi%20there,%20I%20have%20a%20question"
               target="_blank"
             >
               {" "}
