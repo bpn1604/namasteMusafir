@@ -32,7 +32,7 @@ function Header({ showModal, handleClose, setShowModal }) {
             >
               <small className="me-3 text-light">
                 <i className="fa fa-map-marker-alt me-2" />
-                Panipat
+                Panipat.
               </small>
               <small className="me-3 text-light">
                 <i className="fa fa-phone-alt me-2" />
